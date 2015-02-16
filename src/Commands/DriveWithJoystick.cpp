@@ -16,7 +16,6 @@ void DriveWithJoystick::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void DriveWithJoystick::Execute()
 {
-	oi->getGyro();
 	double x = oi->getDriverJoystickX();
 	double y = oi->getDriverJoystickY();
 	double z = oi->getDriverJoystickZ();

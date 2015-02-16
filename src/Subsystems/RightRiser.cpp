@@ -1,37 +1,100 @@
 #include "RightRiser.h"
 #include "../RobotMap.h"
+#include "../OI.h"
 #include "../Commands/SetRightRiser.h"
-#include "SmartDashboard/SmartDashboard.h"
-#include "LiveWindow/LiveWindow.h"
 
 RightRiser::RightRiser() :
-		PIDSubsystem("RightRiser", 0.0025, 0.0, 0.0)
+		Subsystem("ExampleSubsystem")
 {
-	SetAbsoluteTolerance(20);
-	right_riser_motor = new Talon(RIGHT_RISER_MOTOR_PORT);
-	right_riser_encoder = new Encoder(RIGHT_RISER_ENCODER_A_PORT, RIGHT_RISER_ENCODER_B_PORT);
-	SetSetpoint(0);
-	Enable();
-}
-
-double RightRiser::ReturnPIDInput()
-{
-	// Return your input value for the PID loop
-	// e.g. a sensor, like a potentiometer:
-	// yourPot->SetAverageVoltage() / kYourMaxVoltage;	
-	//std::cout << "Right Encoder: " << right_riser_encoder->GetDistance() << "\n";
-	return right_riser_encoder->GetDistance();
-}
-
-void RightRiser::UsePIDOutput(double output)
-{
-	// Use output to drive your system, like a motor
-	// e.g. yourMotor->Set(output);
-	right_riser_motor->PIDWrite(output);
+	right_riser_motor = new Victor(RIGHT_RISER_MOTOR_PORT);
+	right_tracking_limit = new DigitalInput(RIGHT_TRACKING_LIMIT_PORT);
+	right_reset_limit = new DigitalInput(RIGHT_RESET_LIMIT_PORT);
+	top = 0;
+	bottom = 0;
+	was_pressed = false;
+	last_direction = 0;
 }
 
 void RightRiser::InitDefaultCommand()
 {
 	// Set the default command for a subsystem here.
+	//SetDefaultCommand(new MySpecialCommand());
 	SetDefaultCommand(new SetRightRiser());
+}
+
+void RightRiser::Update()
+{
+	if(right_tracking_limit->Get())
+	{
+		if(!was_pressed)
+		{
+			//RisingEdge
+			if(last_direction == 1)
+			{
+				bottom += 1;
+			}
+			else if(last_direction == -1)
+			{
+				top -= 1;
+			}
+		}
+
+		was_pressed = true;
+	}
+	else
+	{
+		if(was_pressed)
+		{
+			//FallingEdge
+			if(last_direction == 1)
+			{
+				top += 1;
+			}
+			else if(last_direction == -1)
+			{
+				bottom -= 1;
+			}
+		}
+
+		was_pressed = false;
+	}
+}
+
+void RightRiser::MoveUp()
+{
+	last_direction = 1;
+	right_riser_motor->Set(-0.42);
+}
+
+bool RightRiser::MoveDown()
+{
+	if(right_reset_limit->Get())
+	{
+		last_direction = 0;
+		Stop();
+		top = 0;
+		bottom = 0;
+		return true;
+	}
+	else
+	{
+		last_direction = -1;
+		right_riser_motor->Set(0.28);
+		return false;
+	}
+}
+
+void RightRiser::Stop()
+{
+	right_riser_motor->Set(0.0);
+}
+
+int RightRiser::GetTop()
+{
+	return top;
+}
+
+int RightRiser::GetBottom()
+{
+	return bottom;
 }

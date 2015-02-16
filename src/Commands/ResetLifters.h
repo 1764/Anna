@@ -1,13 +1,18 @@
 #ifndef ResetLifters_H
 #define ResetLifters_H
 
-#include "Commands/CommandGroup.h"
+#include "../CommandBase.h"
 #include "WPILib.h"
 
-class ResetLifters: public CommandGroup
+class ResetLifters: public CommandBase
 {
 public:
 	ResetLifters();
+	void Initialize();
+	void Execute();
+	bool IsFinished();
+	void End();
+	void Interrupted();
 };
 
 #endif

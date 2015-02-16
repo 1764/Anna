@@ -4,75 +4,46 @@
 
 OI::OI()
 {
-	// Process operator interface input here.
-	copilot_stick = new Joystick(COPILOT_STICK_PORT);
-	pilot_stick = new Joystick(PILOT_STICK_PORT);
-	left_limit = new DigitalInput(LEFT_LIMIT_PORT);
-	right_limit = new DigitalInput(RIGHT_LIMIT_PORT);
-	pilot_trigger = new JoystickButton(pilot_stick, 1);
-	copilot_trigger = new JoystickButton(copilot_stick, 1);
-	copilot_trigger->WhenPressed(new ResetLifters());
-	left_ultrasonic = new AnalogInput(LEFT_ULTRASONIC_PORT);
-	right_ultrasonic = new AnalogInput(RIGHT_ULTRASONIC_PORT);
-	gyro = new Gyro(GYRO_PORT);
-	left_riser_limit = new DigitalInput(LEFT_RISER_LIMIT_PORT);
-	right_riser_limit = new DigitalInput(RIGHT_RISER_LIMIT_PORT);
+	driver_joystick = new Joystick(DRIVER_JOYSTICK_PORT);
+	copilot_joystick = new Joystick(COPILOT_JOYSTICK_PORT);
 }
 
 double OI::getDriverJoystickX()
 {
-	return pilot_stick->GetX();
+	return driver_joystick->GetX();
 }
 
 double OI::getDriverJoystickY()
 {
-	return pilot_stick->GetY();
+	return driver_joystick->GetY();
 }
 
 double OI::getDriverJoystickZ()
 {
-	return pilot_stick->GetThrottle();
+	return driver_joystick->GetThrottle();
 }
 
-double OI::getCopilotStickThrottle()
+double OI::getCopilotThrottle()
 {
-	return copilot_stick->GetZ();
+	return copilot_joystick->GetZ();
 }
 
-bool OI::getLeftLimit()
+bool OI::getReset()
 {
-	std::cout << "Left Limit: " << left_limit->Get() << " ";
-	return left_limit->Get();
+	return copilot_joystick->GetTrigger();
 }
 
-bool OI::getRightLimit()
+bool OI::getDriverJosytickButton(int i)
 {
-	std::cout << "Right Limit: " << right_limit->Get() << "\n";
-	return right_limit->Get();
+	return driver_joystick->GetRawButton(i);
 }
 
-double OI::getLeftUltrasonic()
+bool OI::getCopilotJoystickButton(int i)
 {
-	return left_ultrasonic->GetAverageVoltage() * 96;
+	return copilot_joystick->GetRawButton(i);
 }
 
-double OI::getRightUltrasonic()
+double OI::a()
 {
-	return right_ultrasonic->GetAverageVoltage() * 96;
-}
-
-double OI::getGyro()
-{
-	std::cout << "Gyro: " << gyro->GetAngle() << "\n";
-	return gyro->GetAngle();
-}
-
-bool OI::getLeftRiserLimit()
-{
-	return left_riser_limit->Get();
-}
-
-bool OI::getRightRiserLimit()
-{
-	return right_riser_limit->Get();
+	return copilot_joystick->GetZ();
 }

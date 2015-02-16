@@ -6,6 +6,9 @@
 
 class SetRightRiser: public CommandBase
 {
+private:
+	bool was_pressed;
+	int desired_position;
 public:
 	SetRightRiser();
 	void Initialize();
