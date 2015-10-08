@@ -3,7 +3,6 @@
 
 #include <string>
 #include "Commands/Command.h"
-#include "Subsystems/ExampleSubsystem.h"
 #include "Subsystems/LeftRiser.h"
 #include "Subsystems/RightRiser.h"
 #include "Subsystems/DriveTrain.h"
@@ -21,8 +20,7 @@ public:
 	CommandBase(char const *name);
 	CommandBase();
 	static void init();
-	// Create a single static instance of all of your subsystems
-	static ExampleSubsystem *examplesubsystem;
+
 	static OI *oi;
 	static DriveTrain *drive_train;
 	static LeftRiser *left_riser;

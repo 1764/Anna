@@ -6,7 +6,6 @@
 
 class DriveWithGyro: public CommandBase
 {
-	double angle;
 public:
 	DriveWithGyro();
 	void Initialize();
@@ -14,6 +13,7 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
+	double Thresh(double, double);
 };
 
 #endif

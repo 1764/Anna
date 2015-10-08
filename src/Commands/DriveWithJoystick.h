@@ -10,7 +10,7 @@ public:
 	DriveWithJoystick();
 	void Initialize();
 	void Execute();
-	void Thresh(double, double);
+	double Thresh(double, double);
 	bool IsFinished();
 	void End();
 	void Interrupted();

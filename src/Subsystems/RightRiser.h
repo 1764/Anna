@@ -1,27 +1,21 @@
 #ifndef RightRiser_H
 #define RightRiser_H
 
-#include "Commands/Subsystem.h"
+#include "Commands/PIDSubsystem.h"
 #include "WPILib.h"
 
-class RightRiser: public Subsystem
+class RightRiser: public PIDSubsystem
 {
 private:
-	SpeedController *right_riser_motor;
-	DigitalInput *right_tracking_limit;
-	DigitalInput *right_reset_limit;
-	int top, bottom;
-	bool was_pressed;
-	int last_direction;
+	Victor *motor_;
+	DigitalInput *reset_;
+	Encoder *encoder_;
 public:
 	RightRiser();
+	double ReturnPIDInput();
+	void UsePIDOutput(double output);
 	void InitDefaultCommand();
-	void Update();
-	void MoveUp();
-	bool MoveDown();
-	void Stop();
-	int GetTop();
-	int GetBottom();
+	bool getReset();
 };
 
 #endif

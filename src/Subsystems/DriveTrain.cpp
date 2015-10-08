@@ -14,10 +14,10 @@ DriveTrain::DriveTrain() :
 
 void DriveTrain::SetMotor(double x, double y, double z)
 {
-	front_left_drive_motor->SetSpeed(-x-y+z);
-	front_right_drive_motor->SetSpeed(-x+y+z);
-	back_left_drive_motor->SetSpeed(x-y+z);
-	back_right_drive_motor->SetSpeed(x+y+z);
+	front_left_drive_motor->SetSpeed(x-y+z);
+	front_right_drive_motor->SetSpeed(x+y+z);
+	back_left_drive_motor->SetSpeed(-x-y+z);
+	back_right_drive_motor->SetSpeed(-x+y+z);
 }
 
 void DriveTrain::InitDefaultCommand()

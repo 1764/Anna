@@ -1,100 +1,48 @@
 #include "LeftRiser.h"
 #include "../RobotMap.h"
-#include "../OI.h"
-#include "../Commands/SetLeftRiser.h"
+#include "SmartDashboard/SmartDashboard.h"
+#include "LiveWindow/LiveWindow.h"
 
 LeftRiser::LeftRiser() :
-		Subsystem("ExampleSubsystem")
+		PIDSubsystem("LeftRiser", 0.015, 0.0001, 0.0001)
 {
-	left_riser_motor = new Victor(LEFT_RISER_MOTOR_PORT);
-	left_tracking_limit = new DigitalInput(LEFT_TRACKING_LIMIT_PORT);
-	left_reset_limit = new DigitalInput(LEFT_RESET_LIMIT_PORT);
-	top = 0;
-	bottom = 0;
-	was_pressed = false;
-	last_direction = 0;
+	motor_ = new Victor(LEFT_RISER_MOTOR_PORT);
+	reset_ = new DigitalInput(LEFT_RESET_LIMIT_PORT);
+	encoder_ = new Encoder(LEFT_ENCODER_A_PORT, LEFT_ENCODER_B_PORT);
+}
+
+double LeftRiser::ReturnPIDInput()
+{
+	return encoder_->Get();
+}
+
+void LeftRiser::UsePIDOutput(double output)
+{
+	std::cout << "LEFT:" << encoder_->Get() << "\n";
+	if(reset_->Get())
+	{
+		encoder_->Reset();
+		if(output < 0)
+		{
+			this->SetSetpoint(0);
+			motor_->Set(0);
+		}
+		else
+		{
+			motor_->Set(output);
+		}
+	}
+	else
+	{
+		motor_->Set(output);
+	}
 }
 
 void LeftRiser::InitDefaultCommand()
 {
-	// Set the default command for a subsystem here.
-	//SetDefaultCommand(new MySpecialCommand());
-	SetDefaultCommand(new SetLeftRiser());
 }
 
-void LeftRiser::Update()
+bool LeftRiser::getReset()
 {
-	if(left_tracking_limit->Get())
-	{
-		if(!was_pressed)
-		{
-			//RisingEdge
-			if(last_direction == 1)
-			{
-				bottom += 1;
-			}
-			else if(last_direction == -1)
-			{
-				top -= 1;
-			}
-		}
-
-		was_pressed = true;
-	}
-	else
-	{
-		if(was_pressed)
-		{
-			//FallingEdge
-			if(last_direction == 1)
-			{
-				top += 1;
-			}
-			else if(last_direction == -1)
-			{
-				bottom -= 1;
-			}
-		}
-
-		was_pressed = false;
-	}
-}
-
-void LeftRiser::MoveUp()
-{
-	last_direction = 1;
-	left_riser_motor->Set(-0.5);
-}
-
-bool LeftRiser::MoveDown()
-{
-	if(left_reset_limit->Get())
-	{
-		last_direction = 0;
-		Stop();
-		top = 0;
-		bottom = 0;
-		return true;
-	}
-	else
-	{
-		last_direction = -1;
-		left_riser_motor->Set(0.4);
-		return false;
-	}
-}
-
-void LeftRiser::Stop()
-{
-	left_riser_motor->Set(0.0);
-}
-
-int LeftRiser::GetTop()
-{
-	return top;
-}
-
-int LeftRiser::GetBottom()
-{
-	return bottom;
+	return reset_->Get();
 }

@@ -1,19 +1,23 @@
+#include <Commands/AutonomousCommandGroup.h>
+#include <Commands/TrashAuto.h>
 #include "WPILib.h"
 #include "Commands/Command.h"
-#include "Commands/ExampleCommand.h"
 #include "CommandBase.h"
 
 class Robot: public IterativeRobot
 {
 private:
-	Command *autonomousCommand;
 	LiveWindow *lw;
+	Command *autonomousCommand;
 
 	void RobotInit()
 	{
 		CommandBase::init();
-		autonomousCommand = new ExampleCommand();
+		//SmartDashboard::PutNumber("Gyro", gyro->GetAngle());
+		SmartDashboard::PutBoolean("tote", false);
 		lw = LiveWindow::GetInstance();
+		CameraServer::GetInstance()->SetQuality(50);
+		CameraServer::GetInstance()->StartAutomaticCapture("cam0");
 	}
 	
 	void DisabledPeriodic()
@@ -23,6 +27,15 @@ private:
 
 	void AutonomousInit()
 	{
+		if(SmartDashboard::GetBoolean("tote"))
+		{
+			autonomousCommand = new AutonomousCommandGroup();
+		}
+		else
+		{
+			autonomousCommand = new TrashAuto();
+		}
+
 		if (autonomousCommand != NULL)
 			autonomousCommand->Start();
 	}

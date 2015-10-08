@@ -1,27 +1,21 @@
 #ifndef LeftRiser_H
 #define LeftRiser_H
 
-#include "Commands/Subsystem.h"
+#include "Commands/PIDSubsystem.h"
 #include "WPILib.h"
 
-class LeftRiser: public Subsystem
+class LeftRiser: public PIDSubsystem
 {
 private:
-	SpeedController *left_riser_motor;
-	DigitalInput *left_tracking_limit;
-	DigitalInput *left_reset_limit;
-	int top, bottom;
-	bool was_pressed;
-	int last_direction;
+	Victor *motor_;
+	DigitalInput *reset_;
+	Encoder *encoder_;
 public:
 	LeftRiser();
+	double ReturnPIDInput();
+	void UsePIDOutput(double output);
 	void InitDefaultCommand();
-	void Update();
-	void MoveUp();
-	bool MoveDown();
-	void Stop();
-	int GetTop();
-	int GetBottom();
+	bool getReset();
 };
 
 #endif
