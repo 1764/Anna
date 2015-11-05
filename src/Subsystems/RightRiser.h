@@ -7,7 +7,8 @@
 class RightRiser: public PIDSubsystem
 {
 private:
-	Victor *motor_;
+	//Victor *motor_;
+	Talon *motor_;
 	DigitalInput *reset_;
 	Encoder *encoder_;
 public:

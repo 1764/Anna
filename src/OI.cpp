@@ -14,10 +14,10 @@ OI::OI()
 {
 	driver_joystick = new Joystick(DRIVER_JOYSTICK_PORT);
 	copilot_joystick = new Joystick(COPILOT_JOYSTICK_PORT);
-	raise_button = new JoystickButton(copilot_joystick, 8);
-	  raise_button->WhileHeld(new MoveRisersUp());
-	lower_button = new JoystickButton(copilot_joystick, 9);
-	  lower_button->WhileHeld(new MoveRisersDown());
+//	raise_button = new JoystickButton(copilot_joystick, 8);
+//	  raise_button->WhileHeld(new MoveRisersUp());
+//	lower_button = new JoystickButton(copilot_joystick, 9);
+//	  lower_button->WhileHeld(new MoveRisersDown());
 
 	left_up_button = new JoystickButton(copilot_joystick, 6);
 	  left_up_button->WhileHeld(new LeftRiserUp());

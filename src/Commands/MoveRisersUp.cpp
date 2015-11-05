@@ -21,15 +21,16 @@ void MoveRisersUp::Execute()
 {
 	int setpoint = left_riser->GetSetpoint();
 
+
 	if(setpoint < MAX_HEIGHT)
 	{
 		left_riser->SetSetpoint(setpoint + RISER_SPEED);
-		right_riser->SetSetpoint(setpoint + RISER_SPEED);
+		right_riser->SetSetpoint(-setpoint + RISER_SPEED);
 	}
 	else
 	{
 		left_riser->SetSetpoint(MAX_HEIGHT + RISER_SPEED);
-		right_riser->SetSetpoint(MAX_HEIGHT + RISER_SPEED);
+		right_riser->SetSetpoint(-MAX_HEIGHT + RISER_SPEED);
 	}
 }
 

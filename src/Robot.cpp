@@ -19,7 +19,7 @@ private:
 		CameraServer::GetInstance()->SetQuality(50);
 		CameraServer::GetInstance()->StartAutomaticCapture("cam0");
 	}
-	
+
 	void DisabledPeriodic()
 	{
 		Scheduler::GetInstance()->Run();

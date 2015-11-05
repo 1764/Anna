@@ -6,7 +6,8 @@
 RightRiser::RightRiser() :
 		PIDSubsystem("RightRightRiser", 0.015, 0.0001, 0.0001)
 {
-	motor_ = new Victor(RIGHT_RISER_MOTOR_PORT);
+	//motor_ = new Victor(RIGHT_RISER_MOTOR_PORT);
+	motor_ = new Talon(RIGHT_RISER_MOTOR_PORT);
 	reset_ = new DigitalInput(RIGHT_RESET_LIMIT_PORT);
 	encoder_ = new Encoder(RIGHT_ENCODER_A_PORT, RIGHT_ENCODER_B_PORT);
 }
@@ -22,7 +23,7 @@ void RightRiser::UsePIDOutput(double output)
 	if(reset_->Get())
 	{
 		encoder_->Reset();
-		if(output < 0)
+		if(output > 0)
 		{
 			this->SetSetpoint(0);
 			motor_->Set(0);

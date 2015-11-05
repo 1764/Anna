@@ -23,11 +23,11 @@ TrashAuto::TrashAuto()
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	AddSequential(new ResetGyro());
-	AddSequential(new DriveWithGyroTime(0, -0.5, 0, 0.3));
-	AddSequential(new ResetRisers());
-	AddSequential(new SetRisers(300));
-	AddSequential(new DriveWithGyroTime(0, 0.5, 0, 0.3));
-	AddSequential(new DriveWithGyroTime(0.75, 0, 0, 2.5));
-	AddSequential(new WaitF());
+//	AddSequential(new ResetGyro());
+//	AddSequential(new DriveWithGyroTime(0, -0.5, 0, 0.3));
+//	AddSequential(new ResetRisers());
+//	AddSequential(new SetRisers(300));
+//	AddSequential(new DriveWithGyroTime(0, 0.5, 0, 0.3));
+//	AddSequential(new DriveWithGyroTime(0.75, 0, 0, 2.5));
+//	AddSequential(new WaitF());
 }

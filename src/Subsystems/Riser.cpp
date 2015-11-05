@@ -6,7 +6,8 @@
 Riser::Riser(int motorPort, int resetPort, int encoderAPort, int encoderBPort) :
 		PIDSubsystem("LeftRiser", 0.015, 0.0001, 0.0001)
 {
-	motor_ = new Victor(motorPort);
+//	motor_ = new Victor(motorPort);
+	motor_ = new Talon(motorPort);
 	reset_ = new DigitalInput(resetPort);
 	encoder_ = new Encoder(encoderAPort, encoderBPort);
 }

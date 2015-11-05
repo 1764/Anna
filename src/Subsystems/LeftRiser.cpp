@@ -6,7 +6,8 @@
 LeftRiser::LeftRiser() :
 		PIDSubsystem("LeftRiser", 0.015, 0.0001, 0.0001)
 {
-	motor_ = new Victor(LEFT_RISER_MOTOR_PORT);
+	//motor_ = new Victor(LEFT_RISER_MOTOR_PORT);
+	motor_ = new Talon(LEFT_RISER_MOTOR_PORT);
 	reset_ = new DigitalInput(LEFT_RESET_LIMIT_PORT);
 	encoder_ = new Encoder(LEFT_ENCODER_A_PORT, LEFT_ENCODER_B_PORT);
 }

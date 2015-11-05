@@ -16,6 +16,7 @@ void LeftRiserUp::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void LeftRiserUp::Execute()
 {
+	SmartDashboard::PutNumber("encoderLeft", left_riser->encoder_->GetDistance());
 	left_riser->UsePIDOutput(0.6);
 }
 

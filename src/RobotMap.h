@@ -16,14 +16,14 @@ const int LEFT_RISER_MOTOR_PORT = 4;
 const int RIGHT_RISER_MOTOR_PORT = 6;
 
 //Digital inputs
-const int LEFT_RESET_LIMIT_PORT = 1;
-const int RIGHT_RESET_LIMIT_PORT = 0;
+const int LEFT_RESET_LIMIT_PORT = 0;
+const int RIGHT_RESET_LIMIT_PORT = 1;
 
 const int LEFT_ENCODER_A_PORT = 2;
 const int LEFT_ENCODER_B_PORT = 3;
 
-const int RIGHT_ENCODER_A_PORT = 4;
-const int RIGHT_ENCODER_B_PORT = 5;
+const int RIGHT_ENCODER_A_PORT = 5;
+const int RIGHT_ENCODER_B_PORT = 4;
 
 //Analog Inputs
 const int GYRO_PORT = 0;

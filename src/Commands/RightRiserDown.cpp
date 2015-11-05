@@ -16,7 +16,7 @@ void RightRiserDown::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void RightRiserDown::Execute()
 {
-	right_riser->UsePIDOutput(-0.3);
+	right_riser->UsePIDOutput(0.6);
 }
 
 // Make this return true when this Command no longer needs to run execute()

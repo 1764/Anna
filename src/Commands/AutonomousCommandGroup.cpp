@@ -23,6 +23,8 @@ AutonomousCommandGroup::AutonomousCommandGroup()
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
+	/*
+	 * This is commented out in order to properly disable auto mode.
 	AddSequential(new ResetGyro());
 	AddSequential(new DriveWithGyroTime(0, -0.5, 0, 0.3));
 	AddSequential(new ResetRisers());
@@ -31,4 +33,5 @@ AutonomousCommandGroup::AutonomousCommandGroup()
 	AddSequential(new DriveWithGyroTime(-0.75, 0, 0, 2.3));
 	AddSequential(new SetRisers(0));
 	AddSequential(new WaitF());
+	*/
 }

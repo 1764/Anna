@@ -23,7 +23,7 @@ void MoveRisersDown::Execute()
 	if(setpoint > RISER_SPEED)
 	{
 		left_riser->SetSetpoint(setpoint - RISER_SPEED);
-		right_riser->SetSetpoint(setpoint - RISER_SPEED);
+		right_riser->SetSetpoint(-setpoint - RISER_SPEED);
 	}
 	else
 	{
